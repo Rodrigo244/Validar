@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText name;
     private TextInputEditText curp;
     private TextInputEditText correo;
-    
+    private TextInputEditText telefono;
 
     private Button validar_campos;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         name = (TextInputEditText) findViewById(R.id.name);
         curp = (TextInputEditText) findViewById(R.id.CURP);
         correo = (TextInputEditText) findViewById(R.id.email);
-
+        telefono = (TextInputEditText) findViewById(R.id.telefono);
 
         validar_campos = (Button) findViewById(R.id.btn_validar);
         validar_campos.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 String nombre = name.getText().toString();
                 String CURP = curp.getText().toString();
                 String email = correo.getText().toString();
+                String phone = telefono.getText().toString();
 
                 if (TextUtils.isEmpty(nombre)) {
                     name.setError("Campo vacio");
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (!validateEmail(email)) {
 
                     correo.setError("Email no valido");
+
+                }else if (!validaPhone(phone)){
+                    telefono.setError("Telefono incorrecto. (Ingrese solo 10 digitos)");
 
                 }else
                     Toast.makeText(getApplication(), "Todo bien", Toast.LENGTH_SHORT).show();
@@ -86,6 +90,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    private boolean validaPhone(String phone) {
+
+        final String REGEX_NUM_CELULAR = "^[0-9]{10}$";
+
+        Pattern pattern = Pattern.compile(REGEX_NUM_CELULAR);
+        if (!pattern.matcher(phone).matches()) {
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+
+
+
+
 
 
 }
